@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シフト希望入力</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            word-wrap: break-word;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: none;
+        }
+
+        #copyBtn {
+            margin-top: 10px;
+            background-color: #008CBA;
+        }
+
+        #copyBtn:hover {
+            background-color: #007bb5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>シフト希望入力</h1>
+        <div class="input-group">
+            <label for="yearSelect">年: </label>
+            <select id="yearSelect" aria-label="年選択"></select>
+            <label for="monthSelect">月: </label>
+            <select id="monthSelect" aria-label="月選択"></select>
+            <button id="generateBtn">生成</button>
+        </div>
+        <table id="shiftTable">
+            <thead>
+                <tr>
+                    <th>日付</th>
+                    <th>曜日</th>
+                    <th>シフト希望</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- JavaScriptで日付を自動生成 -->
+            </tbody>
+        </table>
+        <button id="submitBtn">送信</button>
+        <textarea id="resultText" readonly aria-label="シフト希望結果"></textarea>
+        <button id="copyBtn">コピー</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const yearSelect = document.getElementById("yearSelect");
+            const monthSelect = document.getElementById("monthSelect");
+            const tableBody = document.getElementById("tableBody");
+            const resultText = document.getElementById("resultText");
+            const copyBtn = document.getElementById("copyBtn");
+
+            // 年と月の選択肢を生成
+            const currentYear = new Date().getFullYear();
+            const currentMonth = new Date().getMonth() + 1;
+
+            for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+                const option = document.createElement("option");
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+
+            for (let month = 1; month <= 12; month++) {
+                const option = document.createElement("option");
+                option.value = month;
+                option.textContent = month;
+                monthSelect.appendChild(option);
+            }
+
+            // デフォルトで現在の年と月を選択
+            yearSelect.value = currentYear;
+            monthSelect.value = currentMonth;
+
+            // 曜日を取得する関数
+            function getDayOfWeek(year, month, day) {
+                const date = new Date(year, month - 1, day);
+                const dayOfWeek = date.getDay();
+                const weekday = ["日", "月", "火", "水", "木", "金", "土"];
+                return weekday[dayOfWeek];
+            }
+
+            // シフト表を生成する関数
+            function generateShiftTable(year, month) {
+                tableBody.innerHTML = "";  // 既存の表をクリア
+                const daysInMonth = new Date(year, month, 0).getDate();
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const row = document.createElement("tr");
+
+                    const dateCell = document.createElement("td");
+                    dateCell.textContent = `${year}-${month}-${day}`;
+                    row.appendChild(dateCell);
+
+                    const dayOfWeekCell = document.createElement("td");
+                    dayOfWeekCell.textContent = getDayOfWeek(year, month, day);
+                    row.appendChild(dayOfWeekCell);
+
+                    const inputCell = document.createElement("td");
+                    const select = document.createElement("select");
+                    select.setAttribute("aria-label", `シフト希望選択 ${year}-${month}-${day}`);
+                    
+                    const optionO = document.createElement("option");
+                    optionO.value = "〇";
+                    optionO.textContent = "〇";
+                    select.appendChild(optionO);
+
+                    const optionX = document.createElement("option");
+                    optionX.value = "×";
+                    optionX.textContent = "×";
+                    select.appendChild(optionX);
+
+                    inputCell.appendChild(select);
+                    row.appendChild(inputCell);
+
+                    tableBody.appendChild(row);
+                }
+            }
+
+            // 生成ボタンがクリックされたときの処理
+            document.getElementById("generateBtn").addEventListener("click", function() {
+                const selectedYear = parseInt(yearSelect.value);
+                const selectedMonth = parseInt(monthSelect.value);
+                generateShiftTable(selectedYear, selectedMonth);
+            });
+
+            // 送信ボタンがクリックされたときの処理
+            document.getElementById("submitBtn").addEventListener("click", function() {
+                const rows = tableBody.getElementsByTagName("tr");
+                let result = [];
+
+                for (let row of rows) {
+                    const date = row.cells[0].textContent;
+                    const dayOfWeek = row.cells[1].textContent;
+                    const shift = row.cells[2].getElementsByTagName("select")[0].value;
+                    result.push(`${date} (${dayOfWeek}): ${shift}`);
+                }
+
+                resultText.value = result.join("\n");
+                alert("シフト希望が送信されました。以下のテキストエリアから結果をコピーしてください。");
+            });
+
+            // コピー機能の追加
+            copyBtn.addEventListener("click", function() {
+                resultText.select();
+                document.execCommand("copy");
+                alert("結果がクリップボードにコピーされました。");
+            });
+        });
+    </script>
+</body>
+</html>
