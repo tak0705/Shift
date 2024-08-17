@@ -140,7 +140,7 @@
                 <!-- JavaScriptで月日を自動生成 -->
             </tbody>
         </table>
-        <button id="submitBtn">送信</button>
+        <button id="submitBtn">メッセージ作成</button>
         <textarea id="resultText" readonly aria-label="シフト希望結果"></textarea>
         <button id="copyBtn">コピー</button>
     </div>
@@ -241,7 +241,7 @@
                 }
 
                 const month = monthSelect.value;
-                resultText.value = `お疲れ様です。${month}月のシフト希望日になります。\nよろしくお願いいたします。\n〇シフト希望日 \n\n` + result.join("\n");
+                resultText.value = `お疲れ様です。${month}月のシフト希望日になります。\nよろしくお願いいたします。\n〇：シフト希望日 \n\n` + result.join("\n");
             });
 
             // コピーボタンがクリックされたときの処理
