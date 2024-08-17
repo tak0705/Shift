@@ -131,13 +131,13 @@
         <table id="shiftTable">
             <thead>
                 <tr>
-                    <th>日付</th>
+                    <th>月日</th>
                     <th>曜日</th>
                     <th>シフト希望</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <!-- JavaScriptで日付を自動生成 -->
+                <!-- JavaScriptで月日を自動生成 -->
             </tbody>
         </table>
         <button id="submitBtn">送信</button>
@@ -173,7 +173,7 @@
 
             // デフォルトで現在の年と月を選択
             yearSelect.value = currentYear;
-            monthSelect.value = currentMonth+1;
+            monthSelect.value = currentMonth + 1;
 
             // 曜日を取得する関数
             function getDayOfWeek(year, month, day) {
@@ -192,7 +192,7 @@
                     const row = document.createElement("tr");
 
                     const dateCell = document.createElement("td");
-                    dateCell.textContent = `${year}-${month}-${day}`;
+                    dateCell.textContent = `${month}-${day}`;
                     row.appendChild(dateCell);
 
                     const dayOfWeekCell = document.createElement("td");
@@ -201,7 +201,7 @@
 
                     const inputCell = document.createElement("td");
                     const select = document.createElement("select");
-                    select.setAttribute("aria-label", `シフト希望選択 ${year}-${month}-${day}`);
+                    select.setAttribute("aria-label", `シフト希望選択 ${month}-${day}`);
                     
                     const optionO = document.createElement("option");
                     optionO.value = "〇";
@@ -211,6 +211,7 @@
                     const optionX = document.createElement("option");
                     optionX.value = "×";
                     optionX.textContent = "×";
+                    optionX.selected = true;  // デフォルトで「×」を選択状態にする
                     select.appendChild(optionX);
 
                     inputCell.appendChild(select);
@@ -239,7 +240,6 @@
                     result.push(`${date} (${dayOfWeek}): ${shift}`);
                 }
 
-                const year = yearSelect.value;
                 const month = monthSelect.value;
                 resultText.value = `お疲れ様です。${month}月のシフト希望日になります。\nよろしくお願いいたします。\n〇シフト希望日 \n\n` + result.join("\n");
             });
@@ -252,7 +252,7 @@
             });
 
             // 初期表示でテーブルを生成
-            generateShiftTable(currentYear, currentMonth+1);
+            generateShiftTable(currentYear, currentMonth + 1);
         });
     </script>
 </body>
