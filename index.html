@@ -10,6 +10,7 @@
             background-color: #f4f4f4;
             text-align: center;
             padding: 20px;
+            margin: 0;
         }
 
         .container {
@@ -18,8 +19,27 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: inline-block;
-            max-width: 600px;
+            max-width: 100%;
             width: 100%;
+            box-sizing: border-box;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .input-group label, .input-group select, .input-group button {
+            margin: 5px;
+        }
+
+        .input-group select, .input-group button {
+            padding: 10px;
+            font-size: 16px;
+            flex-grow: 1;
         }
 
         table {
@@ -34,6 +54,7 @@
             border: 1px solid #ddd;
             word-wrap: break-word;
             text-align: center;
+            font-size: 20px; /* 数字のサイズを大きく */
         }
 
         th {
@@ -47,14 +68,11 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            width: 100%;
         }
 
         button:hover {
             background-color: #45a049;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
         }
 
         textarea {
@@ -62,7 +80,7 @@
             height: 100px;
             margin-top: 20px;
             padding: 10px;
-            font-size: 14px;
+            font-size: 16px;
             box-sizing: border-box;
             resize: none;
         }
@@ -70,10 +88,33 @@
         #copyBtn {
             margin-top: 10px;
             background-color: #008CBA;
+            padding: 10px 20px;
         }
 
         #copyBtn:hover {
             background-color: #007bb5;
+        }
+
+        @media (max-width: 600px) {
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            table th, table td {
+                padding: 8px;
+                font-size: 16px; /* スマホ用に数字サイズを少し小さく */
+            }
+
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            textarea {
+                font-size: 14px;
+                height: 80px;
+            }
         }
     </style>
 </head>
@@ -198,16 +239,20 @@
                     result.push(`${date} (${dayOfWeek}): ${shift}`);
                 }
 
-                resultText.value = result.join("\n");
-                alert("シフト希望が送信されました。以下のテキストエリアから結果をコピーしてください。");
+                const year = yearSelect.value;
+                const month = monthSelect.value;
+                resultText.value = `お疲れ様です。${month}月のシフト希望日です。よろしくお願いいたします。\n〇シフト希望日 \n\n` + result.join("\n");
             });
 
-            // コピー機能の追加
+            // コピーボタンがクリックされたときの処理
             copyBtn.addEventListener("click", function() {
                 resultText.select();
                 document.execCommand("copy");
-                alert("結果がクリップボードにコピーされました。");
+                alert("コピーしました！");
             });
+
+            // 初期表示でテーブルを生成
+            generateShiftTable(currentYear, currentMonth);
         });
     </script>
 </body>
