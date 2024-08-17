@@ -173,7 +173,7 @@
 
             // デフォルトで現在の年と月を選択
             yearSelect.value = currentYear;
-            monthSelect.value = currentMonth;
+            monthSelect.value = currentMonth+1;
 
             // 曜日を取得する関数
             function getDayOfWeek(year, month, day) {
@@ -248,11 +248,11 @@
             copyBtn.addEventListener("click", function() {
                 resultText.select();
                 document.execCommand("copy");
-                alert("コピーしました！");
+                //alert("コピーしました！");
             });
 
             // 初期表示でテーブルを生成
-            generateShiftTable(currentYear, currentMonth);
+            generateShiftTable(currentYear, currentMonth+1);
         });
     </script>
 </body>
