@@ -173,7 +173,7 @@
 
             // デフォルトで現在の年と月を選択
             yearSelect.value = currentYear;
-            monthSelect.value = currentMonth + 1;
+            monthSelect.value = currentMonth;
 
             // 初期表示でテーブルを生成
             if(currentMonth==12)
@@ -246,7 +246,9 @@
                     result.push(`${date} (${dayOfWeek}): ${shift}`);
                 }
 
-                const month = monthSelect.value;
+                let month = currentMonth + 1;
+                if(month==13)
+                    month = 1;
                 resultText.value = `お疲れ様です。\n${month}月の出勤希望日になります。\nよろしくお願いいたします。\n〇：出勤希望日 \n\n` + result.join("\n");
             });
 
