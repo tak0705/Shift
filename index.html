@@ -252,7 +252,11 @@
             });
 
             // 初期表示でテーブルを生成
-            generateShiftTable(currentYear, currentMonth + 1);
+            if(currentMonth == 12)
+                generateShiftTable(currentYear, currentMonth);
+            else
+                generateShiftTable(currentYear, currentMonth + 1);
+            
         });
     </script>
 </body>
