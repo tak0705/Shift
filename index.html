@@ -155,7 +155,7 @@
 
             // 年と月の選択肢を生成
             const currentYear = new Date().getFullYear();
-            const currentMonth = new Date().getMonth();
+            const currentMonth = new Date().getMonth() + 1;
 
             for (let year = currentYear - 5; year <= currentYear + 5; year++) {
                 const option = document.createElement("option");
@@ -176,7 +176,10 @@
             monthSelect.value = currentMonth + 1;
 
             // 初期表示でテーブルを生成
-            generateShiftTable(currentYear, currentMonth + 1);
+            if(currentMonth==12)
+                generateShiftTable(currentYear + 1, 1);
+            else
+                generateShiftTable(currentYear, currentMonth + 1);
 
             // 曜日を取得する関数
             function getDayOfWeek(year, month, day) {
