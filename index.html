@@ -173,7 +173,11 @@
 
             // デフォルトで現在の年と月を選択
             yearSelect.value = currentYear;
-            monthSelect.value = currentMonth;
+            if(currentMonth<=11)
+                monthSelect.value = currentMonth+1;
+            else
+                monthSelect.value = 1;
+                yearSelect.value = currentYear+1;
 
             // 初期表示でテーブルを生成
             if(currentMonth==12)
@@ -238,6 +242,7 @@
             document.getElementById("submitBtn").addEventListener("click", function() {
                 const rows = tableBody.getElementsByTagName("tr");
                 let result = [];
+                const selectedMonth = parseInt(monthSelect.value); // 選択された月を取得
 
                 for (let row of rows) {
                     const date = row.cells[0].textContent;
@@ -246,11 +251,12 @@
                     result.push(`${date} (${dayOfWeek}): ${shift}`);
                 }
 
-                let month = currentMonth + 1;
-                if(month==13)
-                    month = 1;
-                resultText.value = `お疲れ様です。\n${month}月の出勤希望日になります。\nよろしくお願いいたします。\n〇：出勤希望日 \n\n` + result.join("\n");
+                let month = selectedMonth; // 選択された月を使用
+                let year = yearSelect.value; // 選択された年を使用
+
+                resultText.value = `お疲れ様です。\n${year}年${month}月の出勤希望日になります。\nよろしくお願いいたします。\n〇：出勤希望日 \n\n` + result.join("\n");
             });
+
 
             // コピーボタンがクリックされたときの処理
             copyBtn.addEventListener("click", function() {
