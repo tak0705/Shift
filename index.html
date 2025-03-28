@@ -1,273 +1,275 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>シフト希望入力</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>シフト希望入力</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background-color: #f9fafb;
+      padding: 30px;
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.8;
+    }
 
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            max-width: 100%;
-            width: 100%;
-            box-sizing: border-box;
-        }
+    .container {
+      background-color: white;
+      padding: 50px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 100%;
+      width: 90%;
+      margin: auto;
+    }
 
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: #333;
+      text-align: center;
+    }
 
-        .input-group label, .input-group select, .input-group button {
-            margin: 5px;
-        }
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
 
-        .input-group select, .input-group button {
-            padding: 10px;
-            font-size: 16px;
-            flex-grow: 1;
-        }
+    .input-group label {
+      font-weight: bold;
+      color: #444;
+      font-size: 20px;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            table-layout: fixed;
-        }
+    .input-group select,
+    .input-group button {
+      padding: 14px 20px;
+      font-size: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      min-width: 140px;
+    }
 
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            word-wrap: break-word;
-            text-align: center;
-            font-size: 20px; /* 数字のサイズを大きく */
-        }
+    .input-group button {
+      background-color: #2d89ef;
+      color: white;
+      border: none;
+    }
 
-        th {
-            background-color: #f2f2f2;
-        }
+    .input-group button:hover {
+      background-color: #216ac5;
+    }
 
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      table-layout: fixed;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    th, td {
+      padding: 18px;
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 22px;
+    }
 
-        textarea {
-            width: 100%;
-            height: 100px;
-            margin-top: 20px;
-            padding: 10px;
-            font-size: 16px;
-            box-sizing: border-box;
-            resize: none;
-        }
+    th {
+      background-color: #f1f5f9;
+    }
 
-        #copyBtn {
-            margin-top: 10px;
-            background-color: #008CBA;
-            padding: 10px 20px;
-        }
+    .sun, .holiday {
+      color: red;
+      font-weight: bold;
+    }
 
-        #copyBtn:hover {
-            background-color: #007bb5;
-        }
+    .sat {
+      color: #1e90ff;
+      font-weight: bold;
+    }
 
-        @media (max-width: 600px) {
-            .input-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
+    textarea {
+      width: 100%;
+      height: 180px;
+      padding: 16px;
+      font-size: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: none;
+      margin-bottom: 20px;
+    }
 
-            table th, table td {
-                padding: 8px;
-                font-size: 16px; /* スマホ用に数字サイズを少し小さく */
-            }
+    button {
+      font-size: 20px;
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      width: 100%;
+    }
 
-            button {
-                padding: 10px;
-                font-size: 14px;
-            }
+    #copyBtn {
+      background-color: #00bcd4;
+      color: white;
+    }
 
-            textarea {
-                font-size: 14px;
-                height: 80px;
-            }
-        }
-    </style>
+    #copyBtn:hover {
+      background-color: #0097a7;
+    }
+
+    @media (max-width: 600px) {
+      .input-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .input-group select,
+      .input-group button {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      th, td {
+        font-size: 20px;
+        padding: 14px;
+      }
+
+      textarea {
+        font-size: 18px;
+        height: 150px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>シフト希望入力</h1>
-        <div class="input-group">
-            <label for="yearSelect">年: </label>
-            <select id="yearSelect" aria-label="年選択"></select>
-            <label for="monthSelect">月: </label>
-            <select id="monthSelect" aria-label="月選択"></select>
-            <button id="generateBtn">生成</button>
-        </div>
-        <table id="shiftTable">
-            <thead>
-                <tr>
-                    <th>月日</th>
-                    <th>曜日</th>
-                    <th>シフト希望</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- JavaScriptで月日を自動生成 -->
-            </tbody>
-        </table>
-        <button id="submitBtn">メッセージ作成</button>
-        <textarea id="resultText" readonly aria-label="シフト希望結果"></textarea>
-        <button id="copyBtn">コピー</button>
+  <div class="container">
+    <h1>シフト希望入力</h1>
+    <div class="input-group">
+      <label for="yearSelect">年:</label>
+      <select id="yearSelect"></select>
+      <label for="monthSelect">月:</label>
+      <select id="monthSelect"></select>
+      <button id="generateBtn">生成</button>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <th>月日</th>
+          <th>曜日</th>
+          <th>シフト希望</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <button id="submitBtn">メッセージ作成</button>
+    <textarea id="resultText" readonly></textarea>
+    <button id="copyBtn">コピー</button>
+  </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const yearSelect = document.getElementById("yearSelect");
-            const monthSelect = document.getElementById("monthSelect");
-            const tableBody = document.getElementById("tableBody");
-            const resultText = document.getElementById("resultText");
-            const copyBtn = document.getElementById("copyBtn");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const yearSelect = document.getElementById("yearSelect");
+      const monthSelect = document.getElementById("monthSelect");
+      const tableBody = document.getElementById("tableBody");
+      const resultText = document.getElementById("resultText");
+      const copyBtn = document.getElementById("copyBtn");
 
-            // 年と月の選択肢を生成
-            const currentYear = new Date().getFullYear();
-            const currentMonth = new Date().getMonth() + 1;
+      const holidaysJP = {
+        "2025-01-01": "元日",
+        "2025-01-13": "成人の日",
+        "2025-02-11": "建国記念の日",
+        "2025-03-20": "春分の日",
+        "2025-04-29": "昭和の日",
+        "2025-05-03": "憲法記念日",
+        "2025-05-04": "みどりの日",
+        "2025-05-05": "こどもの日",
+        "2025-05-06": "憲法記念日 振替休日",
+        "2025-07-21": "海の日",
+        "2025-08-11": "山の日",
+        "2025-09-15": "敬老の日",
+        "2025-09-23": "秋分の日",
+        "2025-10-13": "スポーツの日",
+        "2025-11-03": "文化の日",
+        "2025-11-23": "勤労感謝の日",
+        "2025-11-24": "勤労感謝の日 振替休日"
+      };
 
-            for (let year = currentYear - 5; year <= currentYear + 5; year++) {
-                const option = document.createElement("option");
-                option.value = year;
-                option.textContent = year;
-                yearSelect.appendChild(option);
-            }
+      const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth() + 1;
 
-            for (let month = 1; month <= 12; month++) {
-                const option = document.createElement("option");
-                option.value = month;
-                option.textContent = month;
-                monthSelect.appendChild(option);
-            }
+      for (let y = currentYear - 1; y <= currentYear + 1; y++) {
+        yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
+      }
 
-            // デフォルトで現在の年と月を選択
-            yearSelect.value = currentYear;
-            if(currentMonth==12)
-            {
-                monthSelect.value = 1;
-                yearSelect.value = currentYear+1;
-            }
-            else
-                monthSelect.value = currentMonth+1;
+      for (let m = 1; m <= 12; m++) {
+        monthSelect.innerHTML += `<option value="${m}">${m}</option>`;
+      }
 
-            // 初期表示でテーブルを生成
-            if(currentMonth==12)
-                generateShiftTable(currentYear + 1, 1);
-            else
-                generateShiftTable(currentYear, currentMonth + 1);
+      yearSelect.value = currentMonth === 12 ? currentYear + 1 : currentYear;
+      monthSelect.value = currentMonth === 12 ? 1 : currentMonth + 1;
 
-            // 曜日を取得する関数
-            function getDayOfWeek(year, month, day) {
-                const date = new Date(year, month - 1, day);
-                const dayOfWeek = date.getDay();
-                const weekday = ["日", "月", "火", "水", "木", "金", "土"];
-                return weekday[dayOfWeek];
-            }
+      generateShiftTable(+yearSelect.value, +monthSelect.value);
 
-            // シフト表を生成する関数
-            function generateShiftTable(year, month) {
-                tableBody.innerHTML = "";  // 既存の表をクリア
-                const daysInMonth = new Date(year, month, 0).getDate();
+      function getDayOfWeek(year, month, day) {
+        return ["日", "月", "火", "水", "木", "金", "土"][new Date(year, month - 1, day).getDay()];
+      }
 
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const row = document.createElement("tr");
+      function isHoliday(year, month, day) {
+        const key = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return holidaysJP[key];
+      }
 
-                    const dateCell = document.createElement("td");
-                    dateCell.textContent = `${month}-${day}`;
-                    row.appendChild(dateCell);
+      function generateShiftTable(year, month) {
+        tableBody.innerHTML = "";
+        const daysInMonth = new Date(year, month, 0).getDate();
 
-                    const dayOfWeekCell = document.createElement("td");
-                    dayOfWeekCell.textContent = getDayOfWeek(year, month, day);
-                    row.appendChild(dayOfWeekCell);
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dayName = getDayOfWeek(year, month, day);
+          const holidayName = isHoliday(year, month, day);
 
-                    const inputCell = document.createElement("td");
-                    const select = document.createElement("select");
-                    select.setAttribute("aria-label", `シフト希望選択 ${month}-${day}`);
-                    
-                    const optionO = document.createElement("option");
-                    optionO.value = "〇";
-                    optionO.textContent = "〇";
-                    select.appendChild(optionO);
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${month}-${day}</td>
+            <td class="${holidayName ? 'holiday' : dayName === '日' ? 'sun' : dayName === '土' ? 'sat' : ''}">${dayName}</td>
+            <td>
+              <select aria-label="シフト希望選択 ${month}-${day}">
+                <option value="〇">〇</option>
+                <option value="×" selected>×</option>
+              </select>
+            </td>
+          `;
+          tableBody.appendChild(row);
+        }
+      }
 
-                    const optionX = document.createElement("option");
-                    optionX.value = "×";
-                    optionX.textContent = "×";
-                    optionX.selected = true;  // デフォルトで「×」を選択状態にする
-                    select.appendChild(optionX);
+      document.getElementById("generateBtn").addEventListener("click", () => {
+        generateShiftTable(+yearSelect.value, +monthSelect.value);
+      });
 
-                    inputCell.appendChild(select);
-                    row.appendChild(inputCell);
-
-                    tableBody.appendChild(row);
-                }
-            }
-
-            // 生成ボタンがクリックされたときの処理
-            document.getElementById("generateBtn").addEventListener("click", function() {
-                const selectedYear = parseInt(yearSelect.value);
-                const selectedMonth = parseInt(monthSelect.value);
-                generateShiftTable(selectedYear, selectedMonth);
-            });
-
-            // 送信ボタンがクリックされたときの処理
-            document.getElementById("submitBtn").addEventListener("click", function() {
-                const rows = tableBody.getElementsByTagName("tr");
-                let result = [];
-                const selectedMonth = parseInt(monthSelect.value); // 選択された月を取得
-
-                for (let row of rows) {
-                    const date = row.cells[0].textContent;
-                    const dayOfWeek = row.cells[1].textContent;
-                    const shift = row.cells[2].getElementsByTagName("select")[0].value;
-                    result.push(`${date} (${dayOfWeek}): ${shift}`);
-                }
-
-                let month = selectedMonth; // 選択された月を使用
-                let year = yearSelect.value; // 選択された年を使用
-
-                resultText.value = `お疲れ様です。\n${month}月の出勤希望日になります。\nよろしくお願いいたします。\n〇：出勤希望日 \n\n` + result.join("\n");
-            });
-
-
-            // コピーボタンがクリックされたときの処理
-            copyBtn.addEventListener("click", function() {
-                resultText.select();
-                document.execCommand("copy");
-                //alert("コピーしました！");
-            });
-
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        const rows = tableBody.querySelectorAll("tr");
+        const month = monthSelect.value;
+        const result = Array.from(rows).map(row => {
+          const date = row.children[0].textContent;
+          const dow = row.children[1].textContent;
+          const val = row.children[2].querySelector("select").value;
+          return `${date} (${dow}): ${val}`;
         });
-    </script>
+        resultText.value = `お疲れ様です。\n${month}月の出勤希望日になります。\nよろしくお願いいたします。\n〇：出勤希望日\n\n${result.join("\n")}`;
+      });
+
+      copyBtn.addEventListener("click", () => {
+        resultText.select();
+        document.execCommand("copy");
+      });
+    });
+  </script>
 </body>
 </html>
